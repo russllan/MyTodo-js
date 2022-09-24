@@ -4,3 +4,6 @@
     padding: 15px 10px;
     align-items: center;
 }
+.text{
+    text-decoration: line-through;
+}
