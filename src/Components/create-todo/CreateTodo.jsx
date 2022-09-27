@@ -5,7 +5,6 @@ import './CreateTodo.css'
 const CreateTodo = (props) =>{
 
     const [value, setValue] = useState("");
-    const [sum, setSum] = useState(0);
     
     const submit = (event) =>{
         event.preventDefault();
