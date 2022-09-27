@@ -1,19 +1,29 @@
-
 import './App.css';
 import Header from './Components/header/Header';
 import CreateTodo from './Components/create-todo/CreateTodo';
 import Todoitem from './Components/todo-item/Todoitem';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 
 function App() {
 
-  const [arr, setArr] = useState([
-    { id: 1, text: "Купить мороженое", status: true}, 
-    { id: 2, text: 'Купить что-то', status: false}, 
-    { id: 3, text:"Купить воду", status:true},
-    { id: 4, text: "Сделать проект на react.js",status:false},
-  ]);
+  // const arr = useState("Ruslan");
+
+  // // const arr = useState([
+  //   {text: "Hellow", age: 18},
+  //   {text:"World", age:20}
+  // ])
+
+  const [arr, setArr] = useState( JSON.parse(localStorage.getItem('todo')) || [] );
+
+  useEffect(() => {
+    console.log("Hello from Effect");
+  }, []);
+
+  useEffect(() => {
+    console.log("State Arr is changed");
+    localStorage.setItem("todo", JSON.stringify(arr))
+  }, [arr])
 
   // const arr = [
   //   {text: "Купить мороженое", status: true}, 
@@ -48,13 +58,26 @@ function App() {
      setArr(newArray)
      console.log(newArray);
   }
+
+  const handleEdit = (id, newText) =>{
+    const newArray = arr.map((item) => {
+      if(item.id === id) {
+        return {...item, text: newText}
+      }
+      return item
+    })
+    console.log(newArray);
+    setArr(newArray)
+  }
   
   const newArr = arr.map((item) =>{
     return <Todoitem handleDelete={handleDeleteTodo} 
     handleStatus={handleStatus}
     id={item.id} 
     text={item.text}
-    boolean={item.status} />
+    boolean={item.status}
+    handleEdit={handleEdit}
+    />
   })
 
   return (
@@ -65,7 +88,11 @@ function App() {
           <div className='todos-wrapper'>
               {/* <Todoitem text="Купить сахар" boolean={true}/>
               <Todoitem text="Купить колу " boolean={false}/> */}
-              {newArr}
+              {
+              newArr.length 
+              ? newArr
+              :<h2 className='waterMark'>Please add some Todo element</h2>
+              }
           </div>
         </div>
     </div>

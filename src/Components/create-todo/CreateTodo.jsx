@@ -18,7 +18,7 @@ const CreateTodo = (props) =>{
         console.log(event.target.value);
     }
     const onPlus = () => {
-        setSum(sum+1) 
+        setSum(sum+1)
     }
     const onMinus = () =>{
         setSum(sum-1)
@@ -31,7 +31,7 @@ const CreateTodo = (props) =>{
             {sum}
         <button onClick={onMinus}>-</button>
         </div> */}
-            <input value={value} onChange={headleChange} type="text" placeholder="Enter todo"/>
+            <input value={value} onChange={headleChange} type="text" placeholder="Enter todo" autoFocus/>
             <button>+Create</button>
         </form>
     )

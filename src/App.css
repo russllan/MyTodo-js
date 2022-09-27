@@ -29,3 +29,8 @@ body{
   color:#fff;
   padding: 5px 10px;
 }
+.waterMark{
+  text-align: center;
+  color: rgb(75, 74, 74);
+  font-size: 22px;
+}
