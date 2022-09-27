@@ -17,13 +17,6 @@ const CreateTodo = (props) =>{
         setValue(event.target.value)
         console.log(event.target.value);
     }
-    const onPlus = () => {
-        setSum(sum+1)
-    }
-    const onMinus = () =>{
-        setSum(sum-1)
-    }
-
     return(
         <form onSubmit={submit} className='wrapper'>
             {/* <div>
