@@ -1,21 +1,25 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { todoSliceActions } from '../../redux/todoSlice';
 import './CreateTodo.css'
 
 
-const CreateTodo = (props) =>{
+const CreateTodo = ( ) =>{
 
+    const dispatch = useDispatch();
     const [value, setValue] = useState("");
     
     const submit = (event) =>{
         event.preventDefault();
-        // alert(value)
-        props.Todo(value);
+        // props.Todo(value); Вместо этого использую редукс
+        dispatch( todoSliceActions.addTodo(value) );
         setValue("");
     }
     const headleChange = (event) => {
         setValue(event.target.value)
         console.log(event.target.value);
     }
+    
     return(
         <form onSubmit={submit} className='wrapper'>
             {/* <div>

@@ -2,28 +2,22 @@ import './App.css';
 import Header from './Components/header/Header';
 import CreateTodo from './Components/create-todo/CreateTodo';
 import Todoitem from './Components/todo-item/Todoitem';
-import {useEffect, useState} from "react";
+import { useSelector } from 'react-redux';
 
 
 function App() {
-
-  // const arr = useState("Ruslan");
 
   // // const arr = useState([
   //   {text: "Hellow", age: 18},
   //   {text:"World", age:20}
   // ])
 
-  const [arr, setArr] = useState( JSON.parse(localStorage.getItem('todo')) || [] );
+  const arr = useSelector((state) => state.todos.data);
 
-  useEffect(() => {
-    console.log("Hello from Effect");
-  }, []);
-
-  useEffect(() => {
-    console.log("State Arr is changed");
-    localStorage.setItem("todo", JSON.stringify(arr))
-  }, [arr])
+  // useEffect(() => {
+  //   console.log("State Arr is changed");
+  //   localStorage.setItem("todo", JSON.stringify(arr))
+  // }, [arr])
 
   // const arr = [
   //   {text: "Купить мороженое", status: true}, 
@@ -35,48 +29,38 @@ function App() {
     return acc + Number(item.status);
   },0);
 
-  const handleAddTodo = (newText) => {
-    setArr([...arr, {text: newText, status: false, id:Date.now()}])
-  }
+  // const handleAddTodo = (newText) => {
+  //   setArr([...arr, {text: newText, status: false, id:Date.now()}])
+  // }
 
-  const handleDeleteTodo = (id) =>{
-    console.log(arr);
-    alert('delete from app' + id);
-    // id.filter()
-    const newArray = arr.filter((item) => item.id !== id)
-    console.log(newArray);
-    setArr(newArray)
-  }
+  // const handleStatus = (id) =>{
+  //    const newArray = arr.map((item) => {
+  //     if(item.id === id){
+  //       return { ...item, status: !item.status }
+  //     }
+  //       return item
+  //     })
+  //    setArr(newArray)
+  //    console.log(newArray);
+  // }
 
-  const handleStatus = (id) =>{
-     const newArray = arr.map((item) => {
-      if(item.id === id){
-        return { ...item, status: !item.status }
-      }
-        return item
-      })
-     setArr(newArray)
-     console.log(newArray);
-  }
-
-  const handleEdit = (id, newText) =>{
-    const newArray = arr.map((item) => {
-      if(item.id === id) {
-        return {...item, text: newText}
-      }
-      return item
-    })
-    console.log(newArray);
-    setArr(newArray)
-  }
+  // const handleEdit = (id, newText) =>{
+  //   const newArray = arr.map((item) => {
+  //     if(item.id === id) {
+  //       return {...item, text: newText}
+  //     }
+  //     return item
+  //   })
+  //   console.log(newArray);
+  //   setArr(newArray)
+  // }
   
   const newArr = arr.map((item) =>{
-    return <Todoitem handleDelete={handleDeleteTodo} 
-    handleStatus={handleStatus}
+    return <Todoitem 
+    key = {item.id}
     id={item.id} 
     text={item.text}
     boolean={item.status}
-    handleEdit={handleEdit}
     />
   })
 
@@ -84,7 +68,7 @@ function App() {
     <div className="App">
         <Header length = {arr.length} result={result}/>
         <div className='content'>
-          <CreateTodo  Todo={handleAddTodo}/>
+          <CreateTodo />
           <div className='todos-wrapper'>
               {/* <Todoitem text="Купить сахар" boolean={true}/>
               <Todoitem text="Купить колу " boolean={false}/> */}
